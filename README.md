@@ -7,18 +7,18 @@ Sistema web desarrollado para registrar, consultar y exportar el control de ingr
 
 ##  Funcionalidades principales
 
-✅ Formulario responsivo (PC, celular, tablet)  
-✅ Registro en base de datos MySQL  
-✅ Visualización tipo tabla (`listar.php`)  
-✅ Exportar a Excel (.xls)  
-✅ Exportar a PDF (modo horizontal, optimizado)  
-✅ Logo institucional y estilo verde corporativo  
-✅ Lista de destinos + campo "Otro"  
-✅ Campo adicional: ¿Quién autoriza el ingreso?
+- Formulario responsivo (PC, celular, tablet)  
+- Registro en base de datos MySQL  
+- Visualización tipo tabla (`listar.php`)  
+- Exportar a Excel (.xls)  
+- Exportar a PDF (modo horizontal, optimizado)  
+- Logo institucional y estilo verde corporativo  
+- Lista de destinos + campo "Otro"  
+- Campo adicional: ¿Quién autoriza el ingreso?
 
 ---
 
-## 🧰 Tecnologías utilizadas
+##  Tecnologías utilizadas
 
 | Tecnología       | Uso                              |
 |------------------|----------------------------------|
@@ -32,8 +32,8 @@ Sistema web desarrollado para registrar, consultar y exportar el control de ingr
 
 ---
 
-## 📁 Estructura del proyecto
-📦 Registro_Visitantes_Hotel_Bogota_Plaza/
+##  Estructura del proyecto
+ Registro_Visitantes_Hotel_Bogota_Plaza/
 ├── frontend/
 │ └── index.html
 ├── backend/
@@ -47,7 +47,7 @@ Sistema web desarrollado para registrar, consultar y exportar el control de ingr
 
 ---
 
-## 🚀 Cómo ejecutar el proyecto localmente
+##  Cómo ejecutar el proyecto localmente
 
 1. Instala **XAMPP** y activa Apache + MySQL  
 2. Copia el proyecto a:  
@@ -59,7 +59,7 @@ Sistema web desarrollado para registrar, consultar y exportar el control de ingr
 
 ---
 
-## 📤 Exportar registros
+##  Exportar registros
 
 - Excel → botón “📥 Exportar a Excel”
 - PDF → botón “🧾 Exportar a PDF”  
@@ -81,8 +81,9 @@ Gracias a Bootstrap, todo el diseño es completamente adaptativo.
 
 ## 👤 Autor
 
-**Hernando Vega**  
+**Hernando Vega R**  
 Estudiante de Ingeniería de Sistemas  
 Corporación Universitaria Minuto de Dios – UNIMINUTO  
+Prácticas Profesionales en Hoteles Bogota Plaza
 Bogotá, 2025
 
