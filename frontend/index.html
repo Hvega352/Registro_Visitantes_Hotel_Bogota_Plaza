@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Visitantes - Hotel Bogotá Plaza</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --verde-corporativo: #006837;
+    }
+
+    .titulo-corporativo {
+      color: var(--verde-corporativo);
+    }
+
+    .btn-corporativo {
+      background-color: var(--verde-corporativo);
+      color: white;
+      border: none;
+    }
+
+    .btn-corporativo:hover {
+      background-color: #004d2f;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <div class="text-center mb-4">
+      <img src="../assets/logo.png" alt="Logo del Hotel Bogotá Plaza" style="max-height: 100px; margin-bottom: 15px;">
+      <h2 class="titulo-corporativo">
+        Sistema Web para el Registro Digital y Control de Ingresos de Visitantes, Proveedores y Contratistas en el Hotel Bogotá Plaza
+      </h2>
+    </div>
+
+    <form action="../backend/registro.php" method="POST">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Nombre completo:</label>
+          <input type="text" class="form-control" name="nombre_completo" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Documento de identidad:</label>
+          <input type="text" class="form-control" name="documento" required>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Tipo de visitante:</label>
+          <select class="form-select" name="tipo_visitante" required>
+            <option value="">Seleccione...</option>
+            <option value="Visitante">Visitante</option>
+            <option value="Proveedor">Proveedor</option>
+            <option value="Contratista">Contratista</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Empresa:</label>
+          <input type="text" class="form-control" name="empresa">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Número de teléfono:</label>
+          <input type="text" class="form-control" name="telefono">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Correo electrónico:</label>
+          <input type="email" class="form-control" name="correo_electronico">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Fecha de ingreso:</label>
+          <input type="date" class="form-control" name="fecha_ingreso" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Hora de ingreso:</label>
+          <input type="time" class="form-control" name="hora_ingreso" required>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Fecha de salida:</label>
+          <input type="date" class="form-control" name="fecha_salida">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Hora de salida:</label>
+          <input type="time" class="form-control" name="hora_salida">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Área o persona visitada / destino:</label>
+        <select class="form-select" name="destino" id="destino" onchange="mostrarCampoOtro()" required>
+          <option value="">Seleccione...</option>
+          <option value="Talento Humano">Talento Humano</option>
+          <option value="Compras">Compras</option>
+          <option value="Seguridad">Seguridad</option>
+          <option value="Costos">Costos</option>
+          <option value="Cocina">Cocina</option>
+          <option value="Oficina del Maitre">Oficina del Maitre</option>
+          <option value="Steward">Steward</option>
+          <option value="Calidad">Calidad</option>
+          <option value="Lavandería">Lavandería</option>
+          <option value="Almacén">Almacén</option>
+          <option value="Mantenimiento">Mantenimiento</option>
+          <option value="Ama de llaves">Ama de llaves</option>
+          <option value="Restaurante Macuira">Restaurante Macuira</option>
+          <option value="Bar">Bar</option>
+          <option value="Recepción">Recepción</option>
+          <option value="Contabilidad">Contabilidad</option>
+          <option value="Tecnología">Tecnología</option>
+          <option value="Comercial">Comercial</option>
+          <option value="Mercadeo">Mercadeo</option>
+          <option value="Gerencia">Gerencia</option>
+          <option value="Reservas">Reservas</option>
+          <option value="Oficina de A&B">Oficina de A&B</option>
+          <option value="Otro">Otro</option>
+        </select>
+
+        <div class="mt-2" id="campo_otro_destino" style="display: none;">
+          <label class="form-label">¿Cuál?</label>
+          <input type="text" class="form-control" name="otro_destino">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">¿Quién autoriza el ingreso?</label>
+        <input type="text" class="form-control" name="autoriza">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Observaciones o novedades:</label>
+        <textarea class="form-control" name="observaciones" rows="3"></textarea>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-corporativo">Registrar ingreso</button>
+        <a href="../backend/listar.php" class="btn btn-corporativo">Ver registros</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function mostrarCampoOtro() {
+      const destino = document.getElementById('destino').value;
+      const campoOtro = document.getElementById('campo_otro_destino');
+      campoOtro.style.display = destino === 'Otro' ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>

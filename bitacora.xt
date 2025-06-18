@@ -1,0 +1,25 @@
+[ETAPA 1] - Planificación
+- Se revisaron los requerimientos funcionales y no funcionales.
+- Se definió el alcance del sistema y sus principales módulos.
+
+[ETAPA 2] - Modelado de base de datos
+- Se diseñó un esquema relacional en MySQL con tabla `visitantes`.
+- Se generó script SQL para phpMyAdmin.
+
+[ETAPA 3] - Desarrollo Frontend
+- Se diseñó una interfaz responsiva usando HTML, CSS y Bootstrap.
+- Se creó un formulario de ingreso con validaciones en JS.
+
+[ETAPA 4] - Desarrollo Backend
+- Se configuró archivo `db.php` para conexión con MySQL.
+- Se programó `registro.php` para insertar datos.
+- Se hizo `listar.php` para mostrar datos.
+- Se desarrolló `exportar.php` para exportar en Excel.
+
+[ETAPA 5] - Pruebas
+- Se probó el sistema en dispositivos móviles y escritorio.
+- Se validaron registros múltiples y exportación de datos.
+
+[ETAPA 6] - Despliegue
+- Proyecto subido a GitHub.
+- Desplegado en Render.com y conectado a base de datos externa.
