@@ -1,11 +1,12 @@
-DOCUMENTACIÓN DEL SISTEMA WEB DE REGISTRO DE VISITANTES - HOTEL BOGOTÁ PLAZA
+DOCUMENTACIÓN DEL SISTEMA WEB DE REGISTRO 
+DE VISITANTES - HOTEL BOGOTÁ PLAZA
 -------------------------------------------------------------------------------
 
-🧾 DESCRIPCIÓN GENERAL
+ DESCRIPCIÓN GENERAL
 Este sistema permite registrar, consultar y exportar el ingreso y salida de visitantes, proveedores y contratistas al Hotel Bogotá Plaza, cumpliendo criterios de facilidad, compatibilidad, escalabilidad y accesibilidad desde diferentes dispositivos.
 
-🛠 HERRAMIENTAS UTILIZADAS
-- Lenguajes: HTML, CSS, JavaScript, PHP
+ HERRAMIENTAS UTILIZADAS
+- Lenguajes: HTML, CSS, PHP
 - Framework: Bootstrap 5 (CDN)
 - Base de datos: MySQL (vía XAMPP/phpMyAdmin)
 - Backend: PHP procedural
@@ -14,7 +15,7 @@ Este sistema permite registrar, consultar y exportar el ingreso y salida de visi
 - Despliegue local: XAMPP
 - Compatible con: PC, portátiles, celulares, tablets
 
-📁 ESTRUCTURA DE CARPETAS
+ ESTRUCTURA DE CARPETAS
 - /frontend: contiene el formulario `index.html`
 - /backend: contiene la lógica PHP (`registro.php`, `listar.php`, `exportar.php`)
 - /assets: logo del hotel (`logo.png`)
@@ -42,7 +43,7 @@ Este sistema permite registrar, consultar y exportar el ingreso y salida de visi
    - Exporta los registros a un archivo .xls
    - Incluye campos: destino, autoriza, otro_destino, observaciones, etc.
 
-🔄 FLUJO DEL SISTEMA
+ FLUJO DEL SISTEMA
 - El usuario llena el formulario (`index.html`)
 - Al hacer submit, se guarda en MySQL mediante `registro.php`
 - Desde `listar.php`, se pueden ver los datos en tabla
@@ -50,14 +51,18 @@ Este sistema permite registrar, consultar y exportar el ingreso y salida de visi
     - Exportar a Excel (`exportar.php`)
     - Exportar a PDF con diseño horizontal
 
-📱 ACCESIBILIDAD MULTIPLATAFORMA
+ ACCESIBILIDAD MULTIPLATAFORMA
 - Compatible con móviles, tablets, PC
 - Bootstrap asegura diseño responsive
 - Puedes acceder desde otros dispositivos si están en la misma red (http://IP_LOCAL)
 
-📝 CONSIDERACIONES
+ CONSIDERACIONES
 - Se recomienda cambiar credenciales de MySQL si se despliega en un servidor real
 - Se pueden integrar validaciones JS o PHP adicionales en el futuro
 
-💡 RECOMENDACIÓN
-Subir a GitHub en estructura limpia, con README.md y logo en /assets.
+ ENLACE ABRIR CON XAMPP
+http://localhost/Registro_Visitantes_Hoteles_Bogota_Plaza/frontend/index.html
+
+BORRAR LOS DATOS DE REGISTRO DE LA TABLA VISITANTES EN MYSQL
+DELETE FROM visitantes;
+ALTER TABLE visitantes AUTO_INCREMENT = 1;

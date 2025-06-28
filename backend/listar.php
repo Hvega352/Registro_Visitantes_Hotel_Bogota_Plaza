@@ -19,7 +19,6 @@ $resultado = $conn->query($sql);
   <meta charset="UTF-8">
   <title>Listado de Visitantes</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <style>
     :root {
       --verde-corporativo: #006837;
@@ -108,7 +107,7 @@ $resultado = $conn->query($sql);
             <th>Documento</th>
             <th>Tipo</th>
             <th>Empresa</th>
-            <th>Telefono</th>
+            <th>Teléfono</th>
             <th>Correo</th>
             <th>Ingreso</th>
             <th>Salida</th>
@@ -123,19 +122,19 @@ $resultado = $conn->query($sql);
           if ($resultado->num_rows > 0) {
             while ($fila = $resultado->fetch_assoc()) {
               echo "<tr>";
-              echo "<td>{$fila['id']}</td>";
-              echo "<td>{$fila['nombre_completo']}</td>";
-              echo "<td>{$fila['documento']}</td>";
-              echo "<td>{$fila['tipo_visitante']}</td>";
-              echo "<td>{$fila['empresa']}</td>";
-              echo "<td>{$fila['telefono']}</td>";
-              echo "<td>{$fila['correo_electronico']}</td>";
-              echo "<td>{$fila['fecha_ingreso']} {$fila['hora_ingreso']}</td>";
+              echo "<td>" . ($fila['id'] ?? '-') . "</td>";
+              echo "<td>" . ($fila['nombre_completo'] ?? '-') . "</td>";
+              echo "<td>" . ($fila['documento'] ?? '-') . "</td>";
+              echo "<td>" . ($fila['tipo_visitante'] ?? '-') . "</td>";
+              echo "<td>" . ($fila['empresa'] ?? '-') . "</td>";
+              echo "<td>" . ($fila['telefono'] ?? '-') . "</td>";
+              echo "<td>" . ($fila['correo_electronico'] ?? '-') . "</td>";
+              echo "<td>" . ($fila['fecha_ingreso'] ?? '-') . " " . ($fila['hora_ingreso'] ?? '-') . "</td>";
               echo "<td>" . ($fila['fecha_salida'] ?? '-') . " " . ($fila['hora_salida'] ?? '-') . "</td>";
-              echo "<td>{$fila['destino']}</td>";
-              echo "<td>{$fila['otro_destino']}</td>";
+              echo "<td>" . ($fila['destino'] ?? '-') . "</td>";
+              echo "<td>" . ($fila['otro_destino'] ?? '-') . "</td>";
               echo "<td>" . ($fila['autoriza'] ?? '-') . "</td>";
-              echo "<td class='observaciones-col'>{$fila['observaciones']}</td>";
+              echo "<td class='observaciones-col'>" . ($fila['observaciones'] ?? '-') . "</td>";
               echo "</tr>";
             }
           } else {
