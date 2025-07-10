@@ -92,10 +92,11 @@ $resultado = $conn->query($sql);
       <h3 class="titulo-corporativo">Listado de Visitantes - Hotel Bogotá Plaza</h3>
     </div>
 
+    <!-- Bloque de botones para exportar y volver -->
     <div class="text-end mb-3">
-      <a href="../frontend/index.html" class="btn btn-corporativo">← Volver</a>
       <a href="exportar.php" class="btn btn-corporativo">📥 Exportar a Excel</a>
-      <button onclick="alertaPDF()" class="btn btn-corporativo">🧾 Exportar a PDF</button>
+      <a href="exportar_pdf.php" class="btn btn-corporativo">🧾 Exportar a PDF</a>
+      <a href="../frontend/index.html" class="btn btn-secondary">← Volver</a>
     </div>
 
     <div class="table-responsive">

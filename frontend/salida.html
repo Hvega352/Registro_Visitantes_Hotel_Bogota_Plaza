@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrar Salida - Hotel Bogotá Plaza</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root { --verde-corporativo: #006837; }
+    .titulo-corporativo { color: var(--verde-corporativo); }
+    .btn-corporativo { background-color: var(--verde-corporativo); color: white; border: none; }
+    .btn-corporativo:hover { background-color: #004d2f; }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <div class="text-center mb-4">
+      <img src="../assets/logo.png" alt="Logo del Hotel Bogotá Plaza" style="max-height: 100px; margin-bottom: 15px;">
+      <h2 class="titulo-corporativo">Registrar Salida de Visitante</h2>
+    </div>
+
+    <!-- Formulario de búsqueda -->
+    <form id="buscarForm" class="mb-4">
+      <div class="input-group">
+        <input type="text" class="form-control" id="busqueda" placeholder="Buscar por nombre o documento" required>
+        <button type="submit" class="btn btn-corporativo">Buscar</button>
+      </div>
+    </form>
+
+    <!-- Aquí se mostrarán los datos del visitante encontrado -->
+    <div id="resultado"></div>
+  </div>
+
+  <footer class="text-center text-muted mt-5 mb-3" style="font-size: 14px;">
+    © 2025 Todos los derechos reservados. Desarrollado por Hernando Vega · Hotel Bogotá Plaza · Proyecto académico · Uniminuto
+  </footer>
+
+  <script>
+    document.getElementById('buscarForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const busqueda = document.getElementById('busqueda').value.trim();
+      if (!busqueda) return;
+
+      fetch('../backend/buscar_visitante.php?busqueda=' + encodeURIComponent(busqueda))
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.id) {
+            // Mostrar formulario de salida
+            document.getElementById('resultado').innerHTML = `
+              <form id="salidaForm">
+                <div class="mb-3">
+                  <label class="form-label"><strong>Nombre:</strong> ${data.nombre_completo}</label><br>
+                  <label class="form-label"><strong>Documento:</strong> ${data.documento}</label><br>
+                  <label class="form-label"><strong>Fecha de ingreso:</strong> ${data.fecha_ingreso}</label><br>
+                  <label class="form-label"><strong>Hora de ingreso:</strong> ${data.hora_ingreso}</label>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Fecha de salida:</label>
+                    <input type="date" class="form-control" name="fecha_salida" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Hora de salida:</label>
+                    <input type="time" class="form-control" name="hora_salida" required>
+                  </div>
+                </div>
+                <input type="hidden" name="id" value="${data.id}">
+                <div class="text-center">
+                  <button type="submit" class="btn btn-corporativo">Registrar salida</button>
+                </div>
+              </form>
+              <div id="mensaje"></div>
+            `;
+
+            document.getElementById('salidaForm').addEventListener('submit', function(ev) {
+              ev.preventDefault();
+              const formData = new FormData(ev.target);
+              fetch('../backend/salida.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(resp => resp.text())
+              .then(msg => {
+                document.getElementById('mensaje').innerHTML = `<div class="alert alert-success">${msg}</div>`;
+                setTimeout(() => { document.getElementById('resultado').innerHTML = ""; }, 2000);
+              });
+            });
+
+          } else {
+            document.getElementById('resultado').innerHTML = '<div class="alert alert-danger">No se encontró visitante pendiente de salida con ese nombre o documento.</div>';
+          }
+        });
+    });
+  </script>
+</body>
+</html>
