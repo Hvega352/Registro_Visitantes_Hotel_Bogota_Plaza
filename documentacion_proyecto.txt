@@ -1,169 +1,227 @@
-DOCUMENTACIÓN DEL SISTEMA WEB DE REGISTRO  
+DOCUMENTACIÓN DEL SISTEMA WEB DE REGISTRO
 DE VISITANTES - HOTEL BOGOTÁ PLAZA
+1. Descripción General
+Este sistema web permite registrar, consultar y exportar el ingreso y salida de visitantes, proveedores y contratistas en el Hotel Bogotá Plaza.
+Está diseñado para ser intuitivo, escalable y accesible desde múltiples dispositivos (PC, portátiles, móviles y tablets), garantizando compatibilidad y diseño responsivo.
 
-1. DESCRIPCIÓN GENERAL
+El sistema facilita un control eficiente y seguro de las visitas, mejorando la gestión administrativa y la seguridad del hotel.
 
-Este sistema web permite registrar, consultar y exportar el ingreso y salida de visitantes, proveedores y contratistas al Hotel Bogotá Plaza. 
-Está diseñado para ser fácil de usar, escalable y accesible desde múltiples dispositivos (PC, portátiles, móviles y tablets), garantizando compatibilidad y un diseño responsivo.
+2. Herramientas y Tecnologías Utilizadas
+Lenguajes: HTML, CSS, PHP (programación procedural)
 
-El sistema facilita el control eficiente y seguro de las visitas, mejorando la gestión administrativa del hotel.
+Framework CSS: Bootstrap 5 (CDN) para diseño responsivo
 
-2. HERRAMIENTAS Y TECNOLOGÍAS UTILIZADAS
+Base de datos: MySQL (vía XAMPP/phpMyAdmin)
 
-- Lenguajes: HTML, CSS, PHP (procedural)
-- Framework CSS: Bootstrap 5 (CDN) para diseño responsivo
-- Base de datos: MySQL (vía XAMPP/phpMyAdmin)
-- Control de versiones: Git + GitHub
-- Editor recomendado: Visual Studio Code
-- Servidor local: XAMPP (Apache + MySQL)
-- Compatibilidad: Navegadores modernos en PC, móviles y tablets
+Control de versiones: Git + GitHub
 
-3. ESTRUCTURA DEL PROYECTO
+Editor recomendado: Visual Studio Code
 
+Servidor local: XAMPP (Apache + MySQL)
+
+Compatibilidad: Navegadores modernos en PC, móviles y tablets
+
+3. Estructura del Proyecto
+text
 Registro_Visitantes_Hoteles_Bogota_Plaza/
 ├── frontend/
 │   └── index.html              # Formulario principal de registro
 ├── backend/
-│   ├── conexion.php            # Archivo de conexión a la base de datos
-│   ├── registro.php            # Lógica para insertar registros
+│   ├── conexion.php            # Conexión a la base de datos
+│   ├── registro.php            # Inserción de registros
 │   ├── listar.php              # Consulta y despliegue de registros
 │   ├── exportar.php            # Exportación a Excel
-│   ├── exportar_pdf.php        # Exportación a PDF (con FPDF)
+│   ├── exportar_pdf.php        # Exportación a PDF (FPDF)
+│   ├── buscar_visitantes_salida.php  # Búsqueda para registrar salida
+│   ├── registrar_salida_confirmar.php # Registro de salida confirmado
 ├── assets/
 │   └── logo.png                # Logo corporativo del hotel
-├── documentacion_proyecto.xt   # Esta documentación
+├── documentacion_proyecto.txt  # Esta documentación
 ├── README.md                   # Descripción para GitHub
-
-4. DESCRIPCIÓN DE LOS ARCHIVOS CLAVE
-
+4. Descripción de Archivos Clave
 4.1. frontend/index.html
+Formulario responsivo para registrar visitantes.
 
-- Formulario responsivo para registrar visitantes.
-- Incluye lista desplegable de destinos con opción “Otro” que muestra campo adicional.
-- Campo para ingresar quién autoriza el ingreso.
-- Validaciones básicas con HTML5 y Bootstrap para mejor experiencia de usuario.
+Incluye lista desplegable de destinos con opción “Otro” que muestra campo adicional.
+
+Campo para ingresar quién autoriza el ingreso.
+
+Validaciones básicas con HTML5 y Bootstrap para mejor experiencia de usuario.
 
 4.2. backend/conexion.php
+Configura y establece conexión con la base de datos MySQL.
 
-- Configura y establece la conexión con la base de datos MySQL.
-- Define parámetros de conexión (host, usuario, contraseña, base de datos).
-- Establece charset UTF-8 para evitar problemas de codificación.
+Define parámetros de conexión (host, usuario, contraseña, base de datos).
+
+Establece charset UTF-8 para evitar problemas de codificación.
 
 4.3. backend/registro.php
+Recibe datos del formulario y los inserta en la tabla visitantes.
 
-- Recibe datos del formulario y los inserta en la tabla visitantes.
-- Maneja campos condicionales, como otro_destino si se selecciona “Otro”.
-- Valida datos mínimos antes de insertar.
+Maneja campos condicionales, como otro_destino si se selecciona “Otro”.
+
+Valida datos mínimos antes de insertar.
 
 4.4. backend/listar.php
+Consulta todos los registros de visitantes ordenados por fecha o ID.
 
-- Consulta todos los registros de visitantes ordenados por fecha o ID.
-- Muestra los datos en una tabla HTML estilizada con Bootstrap y CSS personalizado.
-- Incluye el logo del hotel y estilo corporativo.
-- Permite exportar los datos a Excel (exportar.php) y PDF (exportar_pdf.php).
-- Diseño especial para impresión en modo horizontal.
+Muestra los datos en tabla HTML estilizada con Bootstrap y CSS personalizado.
+
+Incluye logo del hotel y estilo corporativo.
+
+Permite exportar datos a Excel (exportar.php) y PDF (exportar_pdf.php).
+
+Diseño especial para impresión en modo horizontal.
 
 4.5. backend/exportar.php
+Exporta registros a archivo Excel (.xls).
 
-- Exporta los registros a un archivo Excel (.xls).
-- Incluye todos los campos relevantes: destino, autoriza, observaciones, etc.
+Incluye todos los campos relevantes: destino, autoriza, observaciones, etc.
 
 4.6. backend/exportar_pdf.php
+Genera PDF con formato horizontal usando librería FPDF.
 
-- Genera un PDF con formato horizontal usando la librería FPDF.
-- Incluye logo, título, tabla de datos y pie de página con fecha/hora y derechos reservados.
-- Descarga automática al usuario.
+Incluye logo, título, tabla de datos y pie de página con fecha/hora y derechos reservados.
 
-5. FLUJO DE USO DEL SISTEMA
+Descarga automática para el usuario.
 
-1. El usuario accede a index.html y llena el formulario de registro.
-2. Al enviar, registro.php procesa y guarda los datos en la base de datos MySQL.
-3. Desde listar.php, el usuario puede consultar todos los registros.
-4. En listar.php se ofrecen opciones para exportar los datos a Excel o PDF.
-5. El sistema es accesible desde cualquier dispositivo en la misma red local.
+4.7. backend/buscar_visitantes_salida.php
+Busca visitantes activos por nombre o documento para registrar salida.
 
-6. CONFIGURACIÓN DE LA BASE DE DATOS
+Muestra resultados en tabla con opción para seleccionar visitante específico.
 
-- Base de datos: registro_visitantes
-- Tabla principal: visitantes
-- Campos sugeridos (ejemplo):
-  - id (INT, PK, AI)
-  - nombre_completo (VARCHAR)
-  - documento (VARCHAR)
-  - tipo_visitante (VARCHAR)
-  - empresa (VARCHAR)
-  - telefono (VARCHAR)
-  - correo_electronico (VARCHAR)
-  - fecha_ingreso (DATE)
-  - hora_ingreso (TIME)
-  - fecha_salida (DATE, NULLABLE)
-  - hora_salida (TIME, NULLABLE)
-  - destino (VARCHAR)
-  - autoriza (VARCHAR)
-  - observaciones (TEXT)
-  - otro_destino (VARCHAR, NULLABLE)
+4.8. backend/registrar_salida_confirmar.php
+Registra la salida de visitante seleccionado con fecha y hora actuales.
 
-7. INSTRUCCIONES PARA DESPLIEGUE LOCAL
+Muestra mensaje de confirmación o error.
 
-1. Clonar repositorio:
-   git clone https://github.com/Hvega352/Registro_Visitantes_Hotel_Bogota_Plaza.git
+5. Flujo de Uso del Sistema
+El usuario accede a index.html y completa el formulario de registro.
 
-2. Configurar base de datos:
-   - Crear base registro_visitantes y tabla visitantes en MySQL (phpMyAdmin o consola).
-   - Ajustar credenciales en backend/conexion.php según tu entorno.
+Al enviar, registro.php procesa y guarda los datos en MySQL.
 
-3. Copiar proyecto a servidor local:
-   - Colocar carpeta en C:\xampp\htdocs\ o ruta equivalente.
+Desde listar.php, el usuario puede consultar todos los registros.
 
-4. Iniciar servicios XAMPP:
-   - Apache y MySQL deben estar activos.
+Desde listar.php se ofrecen opciones para exportar datos a Excel o PDF.
 
-5. Acceder al sistema:
-   - Navegar a:
-     http://localhost/Registro_Visitantes_Hoteles_Bogota_Plaza/frontend/index.html
+Para registrar salida, se busca el visitante activo y se confirma la salida.
 
-8. COMANDOS GIT BÁSICOS PARA CONTROL DE VERSIONES
+El sistema es accesible desde cualquier dispositivo en la red local.
 
-- Ver estado del repositorio:
-  git status
+6. Configuración de la Base de Datos
+Base de datos: registro_visitantes
 
-- Agregar todos los cambios:
-  git add .
+Tabla principal: visitantes
 
-- Hacer commit con mensaje claro:
-  git commit -m "Descripción breve de los cambios"
+Campos sugeridos:
 
-- Subir cambios a GitHub (rama principal main):
-  git push origin main
+id (INT, PK, AI)
 
-9. CONSIDERACIONES Y RECOMENDACIONES
+nombre_completo (VARCHAR)
 
-- Seguridad: Cambiar credenciales MySQL antes de desplegar en producción.
-- Validaciones: Agregar validaciones adicionales (JS y PHP) para robustez.
-- Rutas: Usar rutas relativas y evitar caracteres especiales en nombres de carpeta.
-- Errores: Mostrar mensajes de error detallados solo en desarrollo, ocultarlos en producción.
-- Backups: Realizar copias periódicas de base de datos y código.
-- Estilos: Personalizar CSS y logo para mantener identidad corporativa.
-- Accesibilidad: Verificar que el sistema funcione correctamente en distintos dispositivos y navegadores.
+documento (VARCHAR)
 
-10. COMANDOS ÚTILES PARA LIMPIAR LA TABLA DE VISITANTES
+tipo_visitante (VARCHAR)
 
-Borrar toda la tabla: 
+empresa (VARCHAR)
+
+telefono (VARCHAR)
+
+correo_electronico (VARCHAR)
+
+fecha_ingreso (DATE)
+
+hora_ingreso (TIME)
+
+fecha_salida (DATE, NULLABLE)
+
+hora_salida (TIME, NULLABLE)
+
+destino (VARCHAR)
+
+autoriza (VARCHAR)
+
+observaciones (TEXT)
+
+otro_destino (VARCHAR, NULLABLE)
+
+7. Instrucciones para Despliegue Local
+Clonar repositorio:
+
+bash
+git clone https://github.com/Hvega352/Registro_Visitantes_Hotel_Bogota_Plaza.git
+Configurar base de datos:
+
+Crear base registro_visitantes y tabla visitantes en MySQL (phpMyAdmin o consola).
+
+Ajustar credenciales en backend/conexion.php según tu entorno.
+
+Copiar proyecto a servidor local:
+
+Colocar carpeta en C:\xampp\htdocs\ o ruta equivalente.
+
+Iniciar servicios XAMPP:
+
+Apache y MySQL deben estar activos.
+
+Acceder al sistema:
+
+Navegar a:
+http://localhost/Registro_Visitantes_Hoteles_Bogota_Plaza/frontend/index.html
+
+8. Comandos Git Básicos para Control de Versiones
+Ver estado del repositorio:
+
+bash
+git status
+Agregar todos los cambios:
+
+bash
+git add .
+Hacer commit con mensaje claro:
+
+bash
+git commit -m "Descripción breve de los cambios"
+Subir cambios a GitHub (rama principal main):
+
+bash
+git push origin main
+9. Consideraciones y Recomendaciones
+Seguridad: Cambiar credenciales MySQL antes de desplegar en producción.
+
+Validaciones: Añadir validaciones adicionales (JavaScript y PHP) para mayor robustez.
+
+Rutas: Usar rutas relativas y evitar caracteres especiales en nombres de carpetas.
+
+Errores: Mostrar mensajes detallados solo en desarrollo; ocultarlos en producción.
+
+Backups: Realizar copias periódicas de base de datos y código.
+
+Estilos: Personalizar CSS y logo para mantener identidad corporativa.
+
+Accesibilidad: Verificar funcionamiento en distintos dispositivos y navegadores.
+
+10. Comandos Útiles para Limpiar la Tabla de Visitantes
+Borrar toda la tabla:
+
+sql
 DELETE FROM visitantes;
 ALTER TABLE visitantes AUTO_INCREMENT = 1;
+Borrar un solo registro:
 
-Para borrar un solo usuario
-DELETE FROM nombre_de_la_tabla WHERE columna_id = valor_id;
+sql
+DELETE FROM visitantes WHERE id = valor_id;
+11. Créditos
+Desarrollador: Hvega352
 
+Repositorio GitHub:
+https://github.com/Hvega352/Registro_Visitantes_Hotel_Bogota_Plaza
 
-11. CRÉDITOS
+Enlaces de acceso rápido
+Página principal:
+http://localhost/Registro_Visitantes_Hoteles_Bogota_Plaza/frontend/index.html
 
-- Desarrollador: Hvega352
-- Repositorio GitHub:
-  https://github.com/Hvega352/Registro_Visitantes_Hotel_Bogota_Plaza
-
----
-Para ingresar a la página web: http://localhost/Registro_Visitantes_Hoteles_Bogota_Plaza/frontend/index.html
-Para ingresar a consulta de estadisticas: http://localhost/Registro_Visitantes_Hoteles_Bogota_Plaza/frontend/consulta_estadisticas.html
+Consulta de estadísticas:
+http://localhost/Registro_Visitantes_Hoteles_Bogota_Plaza/frontend/consulta_estadisticas.html
 
 Para cualquier duda o ampliación de esta documentación, puedes contactarme o solicitar ayuda adicional.
