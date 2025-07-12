@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Búsqueda Única - Historial de Visitantes</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body { background-color: #f8f9fa; }
+    .container {
+      max-width: 600px;
+      margin-top: 50px;
+      padding: 30px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #006837;
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Búsqueda en Historial de Visitantes</h2>
+    <form action="../backend/historial_busqueda_unica.php" method="get" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="termino" class="form-label">Ingrese término para buscar (destino, empresa, nombre, fecha o mes)</label>
+        <input type="text" id="termino" name="termino" class="form-control" placeholder="Ejemplo: seguridad, 2025-07, ACME, Juan Pérez" required />
+        <div class="invalid-feedback">Por favor ingresa un término de búsqueda.</div>
+      </div>
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        <button type="submit" class="btn btn-success px-5">Buscar</button>
+        <a href="../index.html" class="btn btn-secondary px-5">Volver</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    (() => {
+      'use strict';
+      const forms = document.querySelectorAll('.needs-validation');
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    })();
+  </script>
+</body>
+</html>

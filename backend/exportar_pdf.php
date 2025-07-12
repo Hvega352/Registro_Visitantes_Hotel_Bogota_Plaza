@@ -10,8 +10,7 @@ class PDF extends FPDF {
         }
         $this->SetFont('Arial','B',14);
         $this->SetXY(45, 15);
-        $this->Cell(0,10,
-        'Listado de Visitantes - Hotel Bogota Plaza',0,1,'L');
+        $this->Cell(0,10,'Listado de Visitantes - Hotel Bogota Plaza',0,1,'L');
         $this->Ln(15);
 
         $this->SetFont('Arial','B',8);

@@ -1,83 +1,134 @@
 <?php
-require 'conexion.php'; // Ajusta la ruta según tu proyecto
+// Activar reporte completo de errores para depuración
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// Consulta total de visitantes
-$sql_total = "SELECT COUNT(*) AS total_visitantes FROM visitantes";
-$result_total = $conn->query($sql_total);
-$total_visitantes = ($result_total && $result_total->num_rows > 0) ? $result_total->fetch_assoc()['total_visitantes'] : 0;
+// Conexión a la base de datos
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "registro_visitantes";
 
-// Consulta visitantes por tipo
-$sql_tipo = "SELECT tipo_visitante, COUNT(*) AS cantidad FROM visitantes GROUP BY tipo_visitante";
-$result_tipo = $conn->query($sql_tipo);
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+$conn->set_charset("utf8mb4");
 
-// Consulta visitantes por empresa (top 5)
-$sql_empresa = "SELECT empresa, COUNT(*) AS cantidad FROM visitantes GROUP BY empresa ORDER BY cantidad DESC LIMIT 5";
-$result_empresa = $conn->query($sql_empresa);
+// Obtener parámetros GET y sanitizar
+$fecha_inicio = isset($_GET['fecha_inicio']) ? $_GET['fecha_inicio'] : '';
+$fecha_fin = isset($_GET['fecha_fin']) ? $_GET['fecha_fin'] : '';
+$tipo_visitante = isset($_GET['tipo_visitante']) ? $_GET['tipo_visitante'] : '';
 
-// Puedes agregar más consultas según lo que necesites
+// Validar formato de fechas (YYYY-MM-DD)
+function validarFecha($fecha) {
+    $d = DateTime::createFromFormat('Y-m-d', $fecha);
+    return $d && $d->format('Y-m-d') === $fecha;
+}
 
+$where = [];
+$params = [];
+$tipos = '';
+
+// Validar y agregar filtro fecha_inicio
+if ($fecha_inicio !== '' && validarFecha($fecha_inicio)) {
+    $where[] = "fecha_ingreso >= ?";
+    $params[] = $fecha_inicio;
+    $tipos .= 's';
+} else if ($fecha_inicio !== '') {
+    die("Fecha de inicio inválida.");
+}
+
+// Validar y agregar filtro fecha_fin
+if ($fecha_fin !== '' && validarFecha($fecha_fin)) {
+    $where[] = "fecha_ingreso <= ?";
+    $params[] = $fecha_fin;
+    $tipos .= 's';
+} else if ($fecha_fin !== '') {
+    die("Fecha de fin inválida.");
+}
+
+// Agregar filtro tipo_visitante si se especifica y no es vacío
+if ($tipo_visitante !== '') {
+    $where[] = "tipo_visitante = ?";
+    $params[] = $tipo_visitante;
+    $tipos .= 's';
+}
+
+// Construir cláusula WHERE
+$whereSql = count($where) ? "WHERE " . implode(" AND ", $where) : "";
+
+// Preparar consulta SQL
+$sql = "SELECT nombre_completo, documento, fecha_ingreso, hora_ingreso, fecha_salida, hora_salida, tipo_visitante
+        FROM visitantes
+        $whereSql
+        ORDER BY fecha_ingreso DESC";
+
+$stmt = $conn->prepare($sql);
+if ($stmt === false) {
+    die("Error en la preparación de la consulta: " . $conn->error);
+}
+
+// Vincular parámetros si hay
+if ($params) {
+    $stmt->bind_param($tipos, ...$params);
+}
+
+// Ejecutar consulta
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Estadísticas de Visitantes</title>
-    <link rel="stylesheet" href="ruta/a/tu/estilos.css"> <!-- Ajusta si usas CSS -->
+  <meta charset="UTF-8" />
+  <title>Resultados de Consulta Estadísticas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
-<body>
-    <h1>Estadísticas de Visitantes - Hotel Bogotá Plaza</h1>
+<body class="container py-4">
+  <h2>Resultados de Consulta Estadísticas</h2>
+  <a href="../frontend/consulta_estadisticas.html" class="btn btn-secondary mb-3">Nueva consulta</a>
 
-    <h2>Total de Visitantes</h2>
-    <p><strong><?php echo $total_visitantes; ?></strong></p>
-
-    <h2>Visitantes por Tipo</h2>
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Tipo de Visitante</th>
-                <th>Cantidad</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            if ($result_tipo && $result_tipo->num_rows > 0) {
-                while ($row = $result_tipo->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . htmlspecialchars($row['tipo_visitante']) . "</td>";
-                    echo "<td>" . $row['cantidad'] . "</td>";
-                    echo "</tr>";
-                }
-            } else {
-                echo "<tr><td colspan='2'>No hay datos disponibles.</td></tr>";
-            }
-            ?>
-        </tbody>
+  <?php if ($result->num_rows > 0): ?>
+    <table class="table table-striped table-bordered">
+      <thead class="table-success">
+        <tr>
+          <th>Nombre Completo</th>
+          <th>Documento</th>
+          <th>Tipo de Visitante</th>
+          <th>Fecha Ingreso</th>
+          <th>Hora Ingreso</th>
+          <th>Fecha Salida</th>
+          <th>Hora Salida</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php while ($row = $result->fetch_assoc()): ?>
+          <tr>
+            <td><?= htmlspecialchars($row['nombre_completo']) ?></td>
+            <td><?= htmlspecialchars($row['documento']) ?></td>
+            <td><?= htmlspecialchars($row['tipo_visitante']) ?></td>
+            <td><?= htmlspecialchars($row['fecha_ingreso']) ?></td>
+            <td><?= htmlspecialchars($row['hora_ingreso']) ?></td>
+            <td><?= htmlspecialchars($row['fecha_salida'] ?? '-') ?></td>
+            <td><?= htmlspecialchars($row['hora_salida'] ?? '-') ?></td>
+          </tr>
+        <?php endwhile; ?>
+      </tbody>
     </table>
-
-    <h2>Top 5 Empresas con Más Visitantes</h2>
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Empresa</th>
-                <th>Cantidad</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            if ($result_empresa && $result_empresa->num_rows > 0) {
-                while ($row = $result_empresa->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . htmlspecialchars($row['empresa']) . "</td>";
-                    echo "<td>" . $row['cantidad'] . "</td>";
-                    echo "</tr>";
-                }
-            } else {
-                echo "<tr><td colspan='2'>No hay datos disponibles.</td></tr>";
-            }
-            ?>
-        </tbody>
-    </table>
+  <?php else: ?>
+    <div class="alert alert-warning" role="alert">
+      No se encontraron registros que coincidan con los criterios de búsqueda.
+    </div>
+  <?php endif; ?>
 
 </body>
 </html>
+
+<?php
+// Cerrar conexiones
+$stmt->close();
+$conn->close();
+?>

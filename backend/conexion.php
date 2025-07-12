@@ -5,10 +5,10 @@ $username = "root";
 $password = "Vega1429*";                 
 $dbname = "registro_visitantes";  // Nombre exacto de tu base de datos
 
-// Crear conexión
+// Crea conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar conexión
+// Verifica conexión
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
