@@ -46,7 +46,6 @@ if ($stmt === false) {
 
 // Vincular parámetros si existen
 if ($params) {
-    // bind_param requiere variables, no valores directos, por eso usamos referencia con ...
     $stmt->bind_param($tipos, ...$params);
 }
 

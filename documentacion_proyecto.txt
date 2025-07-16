@@ -171,21 +171,17 @@ http://localhost/Registro_Visitantes_Hoteles_Bogota_Plaza/frontend/index.html
 
 8. Comandos Git Básicos para Control de Versiones
 Ver estado del repositorio:
+cd ruta/a/Registro_Visitantes_Hotel_Bogotá_Plaza
 
-bash
 git status
-Agregar todos los cambios:
-
-bash
 git add .
-Hacer commit con mensaje claro:
-
-bash
-git commit -m "Descripción breve de los cambios"
-Subir cambios a GitHub (rama principal main):
-
-bash
+git commit -m "Mejoras, cambios"
 git push origin main
+
+git remote add origin https://github.com/Hvega352/Registro_Visitantes_Hotel_Bogotá_Plaza.git
+git branch -M main
+git push -u origin main
+
 9. Consideraciones y Recomendaciones
 Seguridad: Cambiar credenciales MySQL antes de desplegar en producción.
 
@@ -210,7 +206,8 @@ ALTER TABLE visitantes AUTO_INCREMENT = 1;
 Borrar un solo registro:
 
 sql
-DELETE FROM visitantes WHERE id = valor_id;
+DELETE FROM visitantes WHERE id = ;
+
 11. Créditos
 Desarrollador: Hvega352
 

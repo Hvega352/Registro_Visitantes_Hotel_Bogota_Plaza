@@ -3,7 +3,7 @@
 $servername = "localhost";      
 $username = "root";             
 $password = "Vega1429*";                 
-$dbname = "registro_visitantes";  // Nombre exacto de tu base de datos
+$dbname = "registro_visitantes";  // Este es el nombre exacto de la base de datos
 
 // Crea conexión
 $conn = new mysqli($servername, $username, $password, $dbname);

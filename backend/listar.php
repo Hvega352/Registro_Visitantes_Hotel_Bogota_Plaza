@@ -94,9 +94,9 @@ $resultado = $conn->query($sql);
 
     <!-- Bloque de botones para exportar y volver -->
     <div class="text-end mb-3">
-      <a href="exportar.php" class="btn btn-corporativo">📥 Exportar a Excel</a>
-      <a href="exportar_pdf.php" class="btn btn-corporativo">🧾 Exportar a PDF</a>
-      <a href="../frontend/index.html" class="btn btn-secondary">← Volver</a>
+      <a href="exportar.php" class="btn btn-corporativo">╦ Exportar a Excel</a>
+      <a href="exportar_pdf.php" class="btn btn-corporativo">╠ Exportar a PDF</a>
+      <a href="../frontend/index.html" class="btn btn-secondary">◄   Volver</a>
     </div>
 
     <div class="table-responsive">

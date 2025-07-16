@@ -14,7 +14,7 @@ echo "Fecha: $fecha_ingreso, Hora: $hora_ingreso";
 ///$fecha_ingreso = $_POST['fecha_ingreso'] ?? '';
 ///$hora_ingreso = $_POST['hora_ingreso'] ?? '';
 $destino = $_POST['destino'] ?? '';
-$otro_destino = $_POST['otro_destino'] ?? '';
+
 $autoriza = $_POST['autoriza'] ?? '';
 $observaciones = $_POST['observaciones'] ?? '';
 

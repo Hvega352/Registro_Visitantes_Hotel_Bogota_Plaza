@@ -20,7 +20,7 @@ class PDF extends FPDF {
         $this->Cell(18,6,'Documento',1);
         $this->Cell(12,6,'Tipo',1);
         $this->Cell(20,6,'Empresa',1);
-        $this->Cell(15,6,'Teléfono',1);
+        $this->Cell(15,6,'Telefono',1);
         $this->Cell(30,6,'Correo',1);
         $this->Cell(15,6,'Fecha Ing.',1);
         $this->Cell(10,6,'Hora Ing.',1);
